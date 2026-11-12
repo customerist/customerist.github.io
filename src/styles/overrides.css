@@ -216,6 +216,22 @@ li {
   }
 }
 
+/* Founder photos. Webflow let the photo grow to fill spare height in its
+   card and stretched it to fit, so the founder with the shorter bio came out
+   tall and narrow on wide screens. They are now square crops at every width. */
+.team-member-image {
+  flex: none;
+  aspect-ratio: 1;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  .team-member-image {
+    height: 190px;
+  }
+}
+
 /* Contact form */
 
 /* "Talk to us" lands with the whole form in view, not the footer's padding. */
