@@ -64,6 +64,9 @@ const plan: Entry[] = [
   { selector: '.image-11', animation: 'pop' },
   { selector: '.heading-19, .text-block-14, .case-cta', animation: 'rise' },
   { selector: '.divider', animation: 'draw' },
+
+  // Blog
+  { selector: '.blog-list li', animation: 'rise', stagger: true },
 ];
 
 const observer = new IntersectionObserver(

@@ -1,0 +1,45 @@
+---
+import '../styles/blog.css';
+import Img from '../components/Img.astro';
+import { formatDate, getPosts } from '../data/posts';
+import Base from '../layouts/Base.astro';
+
+const posts = await getPosts();
+---
+
+<Base title="Blogs | Customerist" description="Notes on customer strategy, CRM, loyalty and customer experience from the founders of Customerist.">
+  <section class="blog-header">
+    <h1 class="main-heading">Blogs</h1>
+    <p class="blog-header__lead">Notes on customer strategy, CRM, loyalty and customer experience from Chris and TP.</p>
+  </section>
+
+  <section class="blog-list" aria-label="Posts">
+    {
+      posts.length === 0 ? (
+        <p class="blog-empty">
+          No posts yet. In the meantime, <a href="/casestudies">read our case studies</a>.
+        </p>
+      ) : (
+        <ol>
+          {posts.map((post) => (
+            <li>
+              <article class:list={['blog-card', { 'blog-card--cover': post.data.cover }]}>
+                <div>
+                  <p class="blog-meta">
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · {post.data.author}
+                    {post.data.draft && <span class="blog-draft">Draft, not published</span>}
+                  </p>
+                  <h2 class="blog-card__title">
+                    <a href={`/blogs/${post.id}`}>{post.data.title}</a>
+                  </h2>
+                  <p class="blog-card__text">{post.data.description}</p>
+                </div>
+                {post.data.cover && <Img src={post.data.cover} alt="" width={320} class="blog-card__cover" />}
+              </article>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </section>
+</Base>

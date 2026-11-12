@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://customerist.github.io',
+  site: 'https://customerist.co',
   // Emit casestudies.html so GitHub Pages serves /casestudies, the same URL Webflow used.
   build: { format: 'file' },
   trailingSlash: 'never',

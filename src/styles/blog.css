@@ -1,0 +1,316 @@
+/* Blog index and posts. Uses the same faces and colours as the rest of the
+   site: the Tiempos serif for titles, Montserrat for reading, red for accents. */
+
+.blog-header,
+.blog-list,
+.blog-post {
+  --serif: "Testtiemposfine Bf 66457 A 50 E 62 Cd", "Times New Roman", serif;
+  --rule: rgb(26 27 31 / 0.18);
+
+  width: min(100%, 880px);
+  margin-inline: auto;
+}
+
+.blog-header {
+  padding: 60px 10px 40px;
+}
+
+.blog-header .main-heading {
+  margin-top: 0;
+}
+
+.blog-header__lead {
+  max-width: 34em;
+  margin-top: 20px;
+  font-family: Avenirltstd Roman, Tahoma, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Index */
+
+.blog-list {
+  padding: 0 10px 80px;
+}
+
+.blog-list ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blog-list li {
+  border-top: 1px solid var(--rule);
+}
+
+.blog-list li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.blog-card {
+  padding-block: 32px;
+}
+
+.blog-card--cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
+  gap: 32px;
+  align-items: center;
+}
+
+.blog-card__cover {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  /* Covers are often portrait with the title at the top; keep that part. */
+  object-position: top;
+}
+
+.blog-meta {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.blog-draft {
+  margin-left: 8px;
+  padding: 2px 8px;
+  background-color: var(--ink);
+  color: #fff;
+  font-weight: bold;
+}
+
+.blog-card__title {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: clamp(26px, 20px + 1.6vw, 38px);
+  line-height: 1.15;
+}
+
+.blog-card__title a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.blog-card__title a:hover {
+  color: var(--red-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+}
+
+.blog-card__text {
+  max-width: 60ch;
+  margin-bottom: 0;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.blog-empty {
+  padding-block: 32px;
+  border-block: 1px solid var(--rule);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.blog-empty a,
+.blog-back,
+.blog-cta {
+  color: var(--red-ink);
+  font-weight: bold;
+}
+
+/* Post */
+
+.blog-post {
+  padding: 60px 10px 80px;
+}
+
+.blog-back {
+  display: inline-block;
+  padding-block: 12px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.blog-back:hover {
+  text-decoration: underline;
+}
+
+.blog-post__title {
+  margin: 12px 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(34px, 22px + 3.4vw, 60px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+/* A portrait cover would fill more than a screen at full width, so covers
+   are capped in height and keep their own proportions. */
+.blog-post__cover {
+  width: auto;
+  max-width: 100%;
+  max-height: 560px;
+  margin: 32px auto 0;
+  display: block;
+}
+
+.blog-prose {
+  max-width: 68ch;
+  margin-top: 40px;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.blog-prose > * + * {
+  margin-top: 1.1em;
+}
+
+.blog-prose p {
+  margin-bottom: 0;
+}
+
+.blog-prose h2,
+.blog-prose h3 {
+  margin-top: 1.8em;
+  margin-bottom: 0;
+  font-family: var(--serif);
+  line-height: 1.2;
+}
+
+.blog-prose h2 {
+  font-size: 30px;
+}
+
+.blog-prose h3 {
+  font-size: 23px;
+}
+
+.blog-prose a {
+  color: var(--red-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.blog-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  margin-bottom: 0;
+  padding-left: 1.3em;
+}
+
+.blog-prose li + li {
+  margin-top: 0.4em;
+}
+
+.blog-prose li::marker {
+  color: var(--red-ink);
+  font-weight: bold;
+}
+
+.blog-prose blockquote {
+  margin: 1.6em 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.blog-prose blockquote::before {
+  content: "\201C";
+  display: block;
+  height: 0.55em;
+  color: #ec1d25;
+  font-size: 3em;
+  font-style: normal;
+  line-height: 1;
+}
+
+.blog-prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.blog-prose code {
+  padding: 0.1em 0.35em;
+  background-color: rgb(26 27 31 / 0.08);
+  font-size: 0.9em;
+}
+
+.blog-prose hr {
+  margin-block: 2em;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.blog-post__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.blog-author p {
+  margin: 0;
+}
+
+.blog-author__photos {
+  display: flex;
+  flex: none;
+}
+
+.blog-author__photos img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.blog-author__photos img + img {
+  margin-left: -12px;
+  border: 2px solid #fbf4ea;
+}
+
+.blog-cta {
+  display: inline-block;
+  padding-block: 12px;
+}
+
+@media (max-width: 600px) {
+  .blog-header,
+  .blog-post {
+    padding-top: 40px;
+  }
+
+  .blog-card--cover {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .blog-card__cover {
+    order: -1;
+  }
+
+  .blog-prose {
+    font-size: 17px;
+  }
+}

@@ -1,5 +1,6 @@
 ---
 import logo from '../assets/images/logo.png';
+import { getPosts } from '../data/posts';
 import Img from './Img.astro';
 
 const path = Astro.url.pathname.replace(/(\.html|\/)$/, '') || '/';
@@ -9,6 +10,9 @@ const links = [
   { href: '/#philosophy', label: 'Our Philosophy' },
   { href: '/casestudies', label: 'Case Studies' },
 ];
+// The Blogs link appears once there is something to read.
+if ((await getPosts()).length > 0) links.push({ href: '/blogs', label: 'Blogs' });
+const isCurrent = (href: string) => path === href || (href === '/blogs' && path.startsWith('/blogs/'));
 ---
 
 <div class="navbar-logo-left-4">
@@ -22,7 +26,7 @@ const links = [
           {
             links.map(({ href, label }) => (
               <li>
-                <a href={href} aria-current={path === href ? 'page' : undefined} class:list={['w-nav-link', { 'w--current': path === href }]}>
+                <a href={href} aria-current={isCurrent(href) ? 'page' : undefined} class:list={['w-nav-link', { 'w--current': isCurrent(href) }]}>
                   {label}
                 </a>
               </li>
