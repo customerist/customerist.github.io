@@ -1,3 +1,29 @@
+/* Everything here sits on top of the stylesheet exported from Webflow and is
+   loaded after it, so a rule with the same selector wins. */
+
+:root {
+  --ink: #1a1b1f;
+  /* Grey for secondary text. Webflow's #949599 was 2.7:1 on the cream. */
+  --muted: #5f6064;
+  /* Brand red (#ec1d25) is 4.0:1 on cream and 4.4:1 under white text, short
+     of the 4.5:1 small text needs. These two are the nearest reds that pass:
+     one for small red text, one for red surfaces that carry small text. */
+  --red-ink: #c0141b;
+  --red-surface: #d8181f;
+}
+
+html {
+  /* Anchor jumps stop below the fixed header. */
+  scroll-padding-top: 90px;
+}
+
+/* Webflow's script animated in-page anchor jumps. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Astro's <Image> always sets width and height attributes; Webflow's markup
    only set a width on a handful of fixed-size images. The attributes count as
    CSS sizes, which changes how images behave in grid and flex containers, so
@@ -11,9 +37,521 @@
   width: auto;
 }
 
-/* Webflow's script animated in-page anchor jumps. */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
+/* The look Webflow gave every h1, for lines that are no longer h1 elements. */
+:where(.h1-look),
+h2:where(.h1-look) {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 38px;
+  font-weight: bold;
+  line-height: 44px;
+}
+
+h1,
+h2,
+h3,
+.h1-look {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--ink);
+  color: #fbf4ea;
+}
+
+/* Focus */
+
+:focus-visible,
+.w-input:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.testimonial-slider-small :focus-visible,
+.testimonial-image-left :focus-visible {
+  outline-color: #fff;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2000;
+  padding: 12px 16px;
+  background: var(--ink);
+  color: #fff;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Colour: text that failed contrast, and Webflow's default blue */
+
+.list-6,
+.list-item-2,
+.text-block-8 {
+  color: var(--muted);
+}
+
+.text-block-7,
+.bold-text-12,
+.bold-text-13,
+.bold-text-14,
+.bold-text-16 {
+  color: var(--red-ink);
+}
+
+.w-nav-link.w--current {
+  color: var(--red-ink);
+}
+
+.button,
+.submit-button,
+.testimonial-slider-small,
+.testimonial-image-left {
+  background-color: var(--red-surface);
+}
+
+.button:hover,
+.submit-button:hover {
+  background-color: var(--ink);
+}
+
+.w-input:focus {
+  border-color: var(--ink);
+}
+
+/* Reading: line height, line length, small text */
+
+.margin-bottom-24px,
+.testimonial-text-four,
+.paragraph-7,
+.paragraph-8,
+.paragraph-10,
+.paragraph-11,
+.paragraph-12 {
+  line-height: 1.5;
+}
+
+.pricing-card-text {
+  line-height: 1.4;
+}
+
+.paragraph-6 {
+  line-height: 1.35;
+}
+
+.paragraph-8,
+.container-25 p {
+  max-width: 70ch;
+}
+
+/* Keeps the "what changed" column at its Webflow width now that the
+   paragraph inside it no longer stretches it. */
+@media (min-width: 480px) {
+  .container-25 {
+    width: 60%;
+  }
+}
+
+@media (max-width: 479px) {
+  .heading-18 {
+    line-height: 1.3;
+  }
+}
+
+.centered-subheading-copy {
+  max-width: 75ch;
+}
+
+@media (max-width: 1439px) {
+  .tagline {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 479px) {
+  .italic-text-2 {
+    font-size: 100%;
+  }
+
+  .button {
+    font-size: 100%;
+    line-height: 1.3;
+  }
+}
+
+/* Tap targets */
+
+.button,
+.button-primary-5 {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.submit-button {
+  min-height: 44px;
+  padding-inline: 20px;
+}
+
+.link {
+  display: inline-block;
+  padding-block: 12px;
+}
+
+/* On phones the slider arrows sat on top of the quote text. */
+@media (max-width: 767px) {
+  .testimonial-card {
+    margin-right: 36px;
+    margin-left: 36px;
+  }
+}
+
+/* Contact form */
+
+/* "Talk to us" lands with the whole form in view, not the footer's padding. */
+.footer-light-2 {
+  scroll-margin-top: -70px;
+}
+
+.w-input {
+  height: auto;
+  min-height: 44px;
+  /* 16px stops iOS zooming the page when a field takes focus. */
+  font-size: 16px;
+}
+
+textarea.w-input {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.paragraph-4 a,
+.form-status a,
+.w-form-fail a {
+  color: var(--red-ink);
+  font-weight: bold;
+}
+
+.form-honeypot {
+  display: none;
+}
+
+.form-note {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.form-status {
+  margin-top: 10px;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid var(--ink);
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+/* Additions */
+
+.clients-caption {
+  margin-top: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.case-steps {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.case-steps > li {
+  display: block;
+}
+
+.case-quote {
+  margin: 0;
+}
+
+.case-cta {
+  margin-top: 30px;
+}
+
+.case-cta a {
+  display: inline-block;
+  font-size: 120%;
+  padding-block: 12px;
+  color: var(--red-ink);
+  font-weight: bold;
+}
+
+/* Motion
+   The hero illustration opens from its red bar. Each section then arrives in
+   its own way as it scrolls into view (src/scripts/motion.ts decides what
+   plays where). The rest is feedback for hover, the menu, the slider and the
+   form. */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bar-open {
+  from {
+    clip-path: inset(var(--bar-top) 0 var(--bar-bottom) 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes header-rule {
+  to {
+    box-shadow: 0 1px 0 rgb(26 27 31 / 0.16);
+  }
+}
+
+/* Section entrances. An element waits unseen until it scrolls into view, then
+   plays the animation named in data-animate. */
+
+@keyframes heading {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(-0.2em 0 -0.2em 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes grow {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes wipe-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: rotate(-40deg) scale(0.9);
+  }
+}
+
+@keyframes tilt {
+  from {
+    opacity: 0;
+    transform: translate(-32px, -12px) rotate(-6deg);
+  }
+}
+
+@keyframes draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+[data-animate]:not(.in-view) {
+  opacity: 0;
+}
+
+[data-animate].in-view {
+  animation: rise 700ms var(--ease-out) var(--delay, 0ms) backwards;
+}
+
+[data-animate='heading'].in-view {
+  animation-name: heading;
+  animation-duration: 800ms;
+}
+
+[data-animate='pop'].in-view {
+  animation-name: pop;
+  animation-duration: 500ms;
+  /* A little after the card it sits in. */
+  animation-delay: 150ms;
+}
+
+[data-animate='grow'].in-view {
+  animation-name: grow;
+}
+
+[data-animate='wipe'].in-view {
+  animation-name: wipe;
+  animation-duration: 1000ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+[data-animate='wipe-up'].in-view {
+  animation-name: wipe-up;
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+[data-animate='settle'].in-view {
+  animation-name: settle;
+  animation-duration: 1100ms;
+}
+
+[data-animate='tilt'].in-view {
+  animation-name: tilt;
+  animation-duration: 800ms;
+}
+
+[data-animate='draw'].in-view {
+  animation-name: draw;
+  animation-duration: 900ms;
+  transform-origin: left;
+}
+
+[data-animate='bar'].in-view {
+  animation: bar-open 900ms cubic-bezier(0.7, 0, 0.2, 1) 200ms backwards;
+}
+
+@media print {
+  [data-animate] {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
+/* Without scripts the illustration is simply there. */
+.js [data-bar-reveal]:not(.is-open) {
+  clip-path: inset(var(--bar-top) 0 var(--bar-bottom) 0);
+}
+
+.js [data-bar-reveal].is-open {
+  /* Holds on the bar for a beat, then opens. */
+  animation: bar-open 900ms cubic-bezier(0.7, 0, 0.2, 1) 350ms backwards;
+}
+
+.w-nav-menu[data-nav-menu-open] {
+  animation: drop-in 250ms var(--ease-out);
+}
+
+.form-status:not([hidden]),
+.w-form-done,
+.w-form-fail {
+  animation: drop-in 300ms var(--ease-out);
+}
+
+.button,
+.submit-button,
+.w-nav-link,
+.case-cta a,
+.link,
+.w-input {
+  transition:
+    color 150ms,
+    background-color 150ms,
+    border-color 150ms,
+    text-decoration-color 150ms;
+}
+
+.w-nav-link:hover {
+  color: var(--red-ink);
+}
+
+.case-cta a:hover,
+.link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.arrow-wrapper-2 {
+  transition: transform 200ms var(--ease-out);
+}
+
+.w-slider-arrow-left:hover .arrow-wrapper-2 {
+  transform: translateX(-3px);
+}
+
+.w-slider-arrow-right:hover .arrow-wrapper-2 {
+  transform: translateX(3px);
+}
+
+/* Reduced motion keeps the feedback and drops the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-bar-reveal]:not(.is-open) {
+    clip-path: none;
+    opacity: 0;
+  }
+
+  .js [data-bar-reveal].is-open {
+    animation: fade-in 300ms backwards;
+  }
+
+  .w-nav-menu[data-nav-menu-open],
+  .form-status:not([hidden]),
+  .w-form-done,
+  .w-form-fail {
+    animation-name: fade-in;
+  }
+
+  [data-animate].in-view {
+    animation: fade-in 300ms backwards !important;
+  }
+
+  .w-slider-arrow-left:hover .arrow-wrapper-2,
+  .w-slider-arrow-right:hover .arrow-wrapper-2 {
+    transform: none;
   }
 }

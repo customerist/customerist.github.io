@@ -8,13 +8,17 @@ interface Props {
   /** Fixed display width in CSS pixels. Omit for images that scale with the layout. */
   width?: number;
   sizes?: string;
-  eager?: boolean;
+  /** Load only when scrolled near. Off by default: images arriving late moved
+   *  the page under in-page links, so "Talk to us" landed short of the form. */
+  lazy?: boolean;
   class?: string;
   id?: string;
+  style?: string;
+  [key: `data-${string}`]: string | boolean | undefined;
 }
 
-const { src, alt = '', width, sizes = '100vw', eager = false, ...rest } = Astro.props;
-const loading = eager ? 'eager' : 'lazy';
+const { src, alt = '', width, sizes = '100vw', lazy = false, ...rest } = Astro.props;
+const loading = lazy ? 'lazy' : 'eager';
 // Small fixed-width images get 1x/2x/3x variants. Anything else gets a
 // width-based srcset capped at the size of the source file.
 const useDensities = width !== undefined && width * 2 <= src.width;

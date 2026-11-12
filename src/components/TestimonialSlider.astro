@@ -25,7 +25,7 @@ const testimonials = [
       'Customerist helped us make sense of years of research and turn it into something immediately actionable. <br><br>Instead of launching yet another survey, they showed us how to synthesise what we already knew into a sharp, clear strategy. The frameworks they built, from audience segmentation to market prioritisation, gave us the confidence to move fast and the clarity to align our teams and partners.',
     emClass: 'italic-text-3 italic-text-4',
     image: mozilla,
-    author: 'Lauren H. Parsons',
+    author: 'Lauren Hendry Parsons',
     tagline: 'Director of Communications<br>Mozilla Foundation',
   },
   {
@@ -89,7 +89,8 @@ const testimonials = [
 <script>
   // Stands in for Webflow's slider script. Slides sit in one unwrapped row and
   // every slide is shifted left by the offset of the page being shown.
-  const DURATION_MS = 500;
+  const DURATION_MS = 600;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const SWIPE_THRESHOLD_PX = 40;
 
   for (const slider of document.querySelectorAll<HTMLElement>('.w-slider')) {
@@ -104,7 +105,7 @@ const testimonials = [
     // Same as the Webflow slider with "hide arrows" on: no arrow at either end.
     const show = (animate: boolean) => {
       for (const slide of slides) {
-        slide.style.transition = animate ? `transform ${DURATION_MS}ms ease` : 'none';
+        slide.style.transition = animate && !reducedMotion.matches ? `transform ${DURATION_MS}ms cubic-bezier(0.16, 1, 0.3, 1)` : 'none';
         slide.style.transform = `translateX(${-pages[current]}px)`;
       }
       if (previous) previous.style.display = current === 0 ? 'none' : '';

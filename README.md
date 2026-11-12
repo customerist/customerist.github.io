@@ -17,12 +17,12 @@ Needs Node 22.23 or newer.
 - `src/pages/` has one file per page: `index.astro`, `casestudies.astro`, `404.astro`.
 - `src/data/case-studies.ts` holds the case study copy. Add an entry there to add a case study.
 - `src/components/` has the nav, footer and contact form, testimonial slider and case study layout.
-- `src/styles/webflow.css` is the stylesheet exported from Webflow, with asset URLs pointed at local files. `overrides.css` holds the few rules added on top.
-- `src/assets/` has images and fonts. Images are resized and converted to WebP at build time.
+- `src/styles/webflow.css` is the stylesheet exported from Webflow, with asset URLs pointed at local files. `overrides.css` is loaded after it and holds everything changed since: contrast, line heights, focus styles, tap targets and the contact form.
+- `src/assets/` has images and the Tiempos serif files. Images are resized and converted to WebP at build time. The sans is Montserrat, from the `@fontsource-variable/montserrat` package.
 
 ## Contact form
 
-GitHub Pages can't receive form posts. Set `formEndpoint` in `src/config.ts` to a Formspree URL (or any endpoint that accepts a JSON POST) and the form submits there. While it is empty, submitting opens the visitor's mail client with the message filled in.
+The form sends through [Web3Forms](https://web3forms.com), since GitHub Pages can't receive form posts. Create an access key there for the address that should receive enquiries, then paste it into `web3formsAccessKey` in `src/config.ts`. The key is public by design. While it is empty, submitting opens the visitor's mail client with the message filled in.
 
 ## Deploy
 
