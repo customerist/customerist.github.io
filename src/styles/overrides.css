@@ -258,6 +258,23 @@ textarea.w-input {
   font-weight: bold;
 }
 
+.footer-social {
+  margin-top: 12px;
+}
+
+.footer-social a {
+  display: inline-block;
+  padding-block: 12px;
+  color: var(--red-ink);
+  font-weight: bold;
+}
+
+@media (max-width: 479px) {
+  .footer-social {
+    text-align: center;
+  }
+}
+
 .form-honeypot {
   display: none;
 }

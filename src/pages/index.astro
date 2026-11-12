@@ -17,6 +17,7 @@ import valueDataDriven from '../assets/images/value-data-driven.png';
 import valuePeopleFocused from '../assets/images/value-people-focused.png';
 import Img from '../components/Img.astro';
 import TestimonialSlider from '../components/TestimonialSlider.astro';
+import { site } from '../config';
 import Base from '../layouts/Base.astro';
 
 const signs = [
@@ -259,7 +260,7 @@ const founders = [
             We have more customer metrics than ever. That hasn't necessarily made us better at understanding customers. The problem isn't measurement, it's
             knowing which measures should actually change a decision.
           </p>
-          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7492822240573620226" target="_blank" rel="noopener" class="link"
+          <a href={site.linkedIn} target="_blank" rel="noopener" class="link"
             >Read more of our posts on LinkedIn↗</a
           >
         </div>

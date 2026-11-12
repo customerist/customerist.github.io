@@ -1,0 +1,49 @@
+---
+import '../../styles/blog.css';
+import { render } from 'astro:content';
+import chris from '../../assets/images/chris-walls.jpg';
+import tp from '../../assets/images/tp-pura.jpg';
+import Img from '../../components/Img.astro';
+import { formatDate, getPosts } from '../../data/posts';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const photos = [post.data.author.includes('Chris') && chris, post.data.author.includes('TP') && tp].filter((photo) => photo !== false);
+---
+
+<Base title={`${post.data.title} | Customerist`} description={post.data.description}>
+  <article class="blog-post">
+    <header class="blog-post__header">
+      <a href="/blogs" class="blog-back">← All posts</a>
+      <h1 class="blog-post__title">{post.data.title}</h1>
+      <p class="blog-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · {post.data.author}
+        {post.data.draft && <span class="blog-draft">Draft, not published</span>}
+      </p>
+    </header>
+
+    {post.data.cover && <Img src={post.data.cover} alt={post.data.coverAlt} width={880} sizes="(max-width: 920px) 100vw, 880px" class="blog-post__cover" />}
+
+    <div class="blog-prose">
+      <Content />
+    </div>
+
+    <footer class="blog-post__footer">
+      <div class="blog-author">
+        <div class="blog-author__photos">
+          {photos.map((photo) => <Img src={photo} alt="" width={64} />)}
+        </div>
+        <p>
+          Written by <strong>{post.data.author}</strong>, {photos.length > 1 ? 'founders' : 'co-founder'} of Customerist.
+        </p>
+      </div>
+      <a href="#footer" class="blog-cta">Facing something similar? Tell us what's stuck&nbsp;↓</a>
+    </footer>
+  </article>
+</Base>
