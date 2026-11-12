@@ -2204,73 +2204,31 @@ textarea.w-select {
   display: grid;
 }
 
+/* These two family names came from Webflow, where they pointed at Avenir LT
+   Std. They now load Montserrat (SIL Open Font License), so the rules that
+   use them did not have to change. The range stops at 800 because Montserrat
+   at 900 is far heavier than Avenir Black was. */
 @font-face {
   font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-MediumOblique.otf")
-    format("opentype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-LightOblique.otf")
-    format("opentype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-BlackOblique.otf")
-    format("opentype");
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-Light.otf")
-    format("opentype");
-  font-weight: 300;
+  src: url("../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 300 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-Oblique.otf")
-    format("opentype");
-  font-weight: 400;
+  src: url("../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-italic.woff2") format("woff2-variations");
+  font-weight: 300 800;
   font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-Medium.otf")
-    format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Avenirltstd;
-  src: url("../assets/fonts/AvenirLTStd-Black.otf")
-    format("opentype");
-  font-weight: 900;
-  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: Avenirltstd Roman;
-  src: url("../assets/fonts/AvenirLTStd-Roman.otf")
-    format("opentype");
+  src: url("../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+  /* One weight only, as the Avenir Roman file was: rules that ask this family
+     for bold still get regular. */
   font-weight: 400;
   font-style: normal;
   font-display: swap;

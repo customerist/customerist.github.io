@@ -1,6 +1,6 @@
 ---
-import '../styles/overrides.css';
 import '../styles/webflow.css';
+import '../styles/overrides.css';
 import Footer from '../components/Footer.astro';
 import Nav from '../components/Nav.astro';
 
@@ -14,7 +14,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,10 +34,45 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
+    <!-- The fixed header gains a hairline once the page has scrolled under it.
+         Inline because the CSS minifier folds animation-timeline into the
+         animation shorthand, which browsers then reject. -->
+    <style is:inline>
+      @supports (animation-timeline: scroll()) {
+        .navbar-logo-left-container-4.shadow-three {
+          animation: header-rule linear both;
+          animation-timeline: scroll(root);
+          animation-range: 0 120px;
+        }
+      }
+    </style>
+    <!-- Marks that scripts run, before first paint, so the hero illustration can
+         start as its red bar without ever flashing in full. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
   </head>
   <body class="body">
+    <a href="#main" class="skip-link">Skip to content</a>
     <Nav />
-    <slot />
+    <main id="main">
+      <slot />
+    </main>
     <Footer />
+    <script>
+      import '../scripts/motion';
+
+      // The hero illustration opens outward from the red bar across the eyes.
+      // The open starts once the image has loaded, or after 4s whatever happens.
+      for (const image of document.querySelectorAll<HTMLImageElement>('[data-bar-reveal]')) {
+        const open = () => image.classList.add('is-open');
+        if (image.complete) open();
+        else {
+          image.addEventListener('load', open, { once: true });
+          image.addEventListener('error', open, { once: true });
+          setTimeout(open, 4000);
+        }
+      }
+    </script>
   </body>
 </html>

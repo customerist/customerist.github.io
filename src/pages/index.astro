@@ -21,10 +21,10 @@ import Base from '../layouts/Base.astro';
 
 const signs = [
   { image: signInsights, title: 'Insights', text: "You don't understand your customers enough to know whom to prioritise" },
-  { image: signCrm, title: 'CRM', text: 'You send a lot of emails and messages without knowing its value & impact' },
+  { image: signCrm, title: 'CRM', text: 'You send a lot of emails and messages without knowing their value & impact' },
   { image: signLoyalty, title: 'Loyalty', text: 'You give points and discounts without truly fostering brand preference' },
   { image: signCx, title: 'CX', text: 'Your experiences are not designed to encourage desirable behaviours' },
-  { image: signPeople, title: 'People', text: "Your team isn't structured nor supported for customer growth" },
+  { image: signPeople, title: 'People', text: "Your team isn't structured or supported for customer growth" },
 ];
 
 const services = [
@@ -141,7 +141,7 @@ const founders = [
         <a href="#customerfirst" class="button w-button">Five signs you're not as customer-first as you think ↓</a>
       </div>
       <div class="hero-split">
-        <Img src={hero} class="shadow-two" eager />
+        <Img src={hero} class="shadow-two" data-bar-reveal style="--bar-top: 28%; --bar-bottom: 58%" />
       </div>
     </div>
   </section>
@@ -172,7 +172,13 @@ const founders = [
         <Img src={map} sizes="(max-width: 808px) 100vw, 808px" class="image-7" />
       </div>
       <div class="w-layout-cell cell-4">
-        <Img src={clients} sizes="(max-width: 1316px) 100vw, 1316px" class="image-6" />
+        <Img
+          src={clients}
+          sizes="(max-width: 1316px) 100vw, 1316px"
+          class="image-6"
+          alt="Logos of brands including Sephora, Love, Bonito, Mozilla Foundation, Brompton, LVMH, L'Oréal, Coles, CVS, Aimia, DBS and UOB."
+        />
+        <p class="clients-caption">Brands we've worked with as Customerist, and brands we led teams at before it.</p>
       </div>
     </div>
   </section>
@@ -254,7 +260,7 @@ const founders = [
             knowing which measures should actually change a decision.
           </p>
           <a href="https://www.linkedin.com/feed/update/urn:li:activity:7492822240573620226" target="_blank" rel="noopener" class="link"
-            >Read more of our posts on Linkedin↗</a
+            >Read more of our posts on LinkedIn↗</a
           >
         </div>
       </div>
@@ -294,7 +300,7 @@ const founders = [
         {
           founders.map((founder) => (
             <div class="team-card">
-              <Img src={founder.image} alt={founder.name} sizes="200px" class="team-member-image" />
+              <Img src={founder.image} alt="" sizes="200px" class="team-member-image" />
               <div class="team-member-name">{founder.name}</div>
               <p class="paragraph-2">{founder.bio}</p>
             </div>
