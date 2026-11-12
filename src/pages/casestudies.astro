@@ -1,0 +1,29 @@
+---
+import heroImage from '../assets/images/services.png';
+import CaseStudy from '../components/CaseStudy.astro';
+import Img from '../components/Img.astro';
+import { caseStudies } from '../data/case-studies';
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Case Studies | Customerist"
+  description="See how Customerist helps brands turn customer strategy, CRM, loyalty and analytics into stronger teams, sharper decisions and sustainable growth."
+>
+  <section class="hero-heading-left">
+    <div class="hero-wrapper">
+      <div class="hero-split">
+        <h1 class="main-heading">Customer problems<br />don't fit neatly<br />into one function.</h1>
+        <div class="text-block-15">Neither do we.</div>
+        <p class="margin-bottom-24px">
+          CRM, loyalty, analytics, experience, organisation. We bring the right disciplines together around the problem — not the other way around.<br />
+        </p>
+      </div>
+      <div class="hero-split">
+        <Img src={heroImage} sizes="(max-width: 1024px) 100vw, 1024px" class="shadow-two" eager />
+      </div>
+    </div>
+  </section>
+
+  {caseStudies.map((study, index) => <CaseStudy study={study} number={index + 1} />)}
+</Base>

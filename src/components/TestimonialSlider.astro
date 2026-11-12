@@ -1,0 +1,154 @@
+---
+import chevronLeft from '../assets/icons/chevron-left.svg';
+import chevronRight from '../assets/icons/chevron-right.svg';
+import quotes from '../assets/icons/double-quotes.svg';
+import loveBonito from '../assets/images/testimonial-love-bonito.jpg';
+import mozilla from '../assets/images/testimonial-mozilla.jpg';
+import retailer from '../assets/images/testimonial-retailer.png';
+import sportsBrand from '../assets/images/testimonial-sports-brand.png';
+import Img from './Img.astro';
+
+// The first two quotes are set in larger italics on the Webflow site and the
+// last two are not, hence the per-quote classes.
+const testimonials = [
+  {
+    quote:
+      'Customerist gave us the reset we needed. They helped us reimagine loyalty, reposition our CRM team, and put the right people in place to bring the vision to life. <br><br>Their approach was both strategic and practical, giving us clarity on what truly matters while ensuring we could execute with confidence. Today, we’re clearer, bolder, and better equipped to build the kind of customer love that sets Love, Bonito apart.',
+    paragraphClass: 'paragraph-3',
+    emClass: 'italic-text-2',
+    image: loveBonito,
+    author: 'Dione Song',
+    tagline: 'CEO<br>Love, Bonito',
+  },
+  {
+    quote:
+      'Customerist helped us make sense of years of research and turn it into something immediately actionable. <br><br>Instead of launching yet another survey, they showed us how to synthesise what we already knew into a sharp, clear strategy. The frameworks they built, from audience segmentation to market prioritisation, gave us the confidence to move fast and the clarity to align our teams and partners.',
+    emClass: 'italic-text-3 italic-text-4',
+    image: mozilla,
+    author: 'Lauren H. Parsons',
+    tagline: 'Director of Communications<br>Mozilla Foundation',
+  },
+  {
+    quote:
+      'We are in such a brilliant place now to really explode the loyalty experience for our community. The team have benefited greatly from your experience.<br><br>We have very much enjoyed having you around!',
+    paragraphClass: 'paragraph-11',
+    image: retailer,
+    author: 'Managing Director',
+    tagline: 'Omnichannel Retailer',
+  },
+  {
+    quote:
+      "They gained the trust of some of our critical functional leaders. <br><br>We're seeing positive outcomes and our ability to work as a team in these areas is improving.",
+    paragraphClass: 'paragraph-12',
+    image: sportsBrand,
+    author: 'Board Member',
+    tagline: 'Sports Brand',
+  },
+];
+---
+
+<section class="testimonial-slider-small">
+  <h2 class="centered-heading-3">What our clients say</h2>
+  <div class="testimonial-slider w-slider" role="region" aria-label="Client testimonials">
+    <div class="mask w-slider-mask">
+      {
+        // Slides are inline-blocks, so they are mapped rather than written out:
+        // whitespace between them would add a gap and break the two-up layout.
+        testimonials.map((t) => (
+          <div class="testimonial-slide-wrapper w-slide">
+            <div class="testimonial-card">
+              <p class={t.paragraphClass}>{t.emClass ? <em class={t.emClass} set:html={t.quote} /> : <Fragment set:html={t.quote} />}</p>
+              <div class="testimonial-info">
+                <Img src={t.image} width={60} class="testimonial-image-2" />
+                <div>
+                  <h3 class="testimonial-author">{t.author}</h3>
+                  <div class="tagline" set:html={t.tagline} />
+                </div>
+                <div class="testimonial-icon-wrapper">
+                  <img src={quotes.src} loading="lazy" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="testimonial-slider-left w-slider-arrow-left" role="button" tabindex="0" aria-label="Previous testimonials">
+      <div class="arrow-wrapper-2">
+        <img src={chevronLeft.src} loading="lazy" alt="" class="slider-arrow-embed-2" />
+      </div>
+    </div>
+    <div class="testimonial-slider-right w-slider-arrow-right" role="button" tabindex="0" aria-label="Next testimonials">
+      <div class="arrow-wrapper-2">
+        <img src={chevronRight.src} loading="lazy" alt="" class="slider-arrow-embed-2" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Stands in for Webflow's slider script. Slides sit in one unwrapped row and
+  // every slide is shifted left by the offset of the page being shown.
+  const DURATION_MS = 500;
+  const SWIPE_THRESHOLD_PX = 40;
+
+  for (const slider of document.querySelectorAll<HTMLElement>('.w-slider')) {
+    const mask = slider.querySelector<HTMLElement>('.w-slider-mask')!;
+    const slides = [...mask.querySelectorAll<HTMLElement>('.w-slide')];
+    let pages: number[] = [];
+    let current = 0;
+
+    const previous = slider.querySelector<HTMLElement>('.w-slider-arrow-left');
+    const next = slider.querySelector<HTMLElement>('.w-slider-arrow-right');
+
+    // Same as the Webflow slider with "hide arrows" on: no arrow at either end.
+    const show = (animate: boolean) => {
+      for (const slide of slides) {
+        slide.style.transition = animate ? `transform ${DURATION_MS}ms ease` : 'none';
+        slide.style.transform = `translateX(${-pages[current]}px)`;
+      }
+      if (previous) previous.style.display = current === 0 ? 'none' : '';
+      if (next) next.style.display = current === pages.length - 1 ? 'none' : '';
+    };
+
+    // A page starts at the first slide that no longer fits in the mask: two
+    // slides per page on desktop, one on mobile.
+    const measure = () => {
+      pages = [];
+      for (const slide of slides) {
+        const start = pages.at(-1);
+        if (start === undefined || slide.offsetLeft + slide.offsetWidth - start > mask.clientWidth + 1) {
+          pages.push(slide.offsetLeft);
+        }
+      }
+      current = Math.min(current, pages.length - 1);
+      show(false);
+    };
+
+    const go = (step: number) => {
+      const target = Math.max(0, Math.min(pages.length - 1, current + step));
+      if (target === current) return;
+      current = target;
+      show(true);
+    };
+
+    for (const [arrow, step] of [[previous, -1], [next, 1]] as const) {
+      arrow?.addEventListener('click', () => go(step));
+      arrow?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          go(step);
+        }
+      });
+    }
+
+    let touchStartX = 0;
+    mask.addEventListener('touchstart', (event) => (touchStartX = event.touches[0].clientX), { passive: true });
+    mask.addEventListener('touchend', (event) => {
+      const delta = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) > SWIPE_THRESHOLD_PX) go(delta < 0 ? 1 : -1);
+    });
+
+    new ResizeObserver(measure).observe(mask);
+  }
+</script>

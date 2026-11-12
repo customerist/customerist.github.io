@@ -1,0 +1,39 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt?: string;
+  /** Fixed display width in CSS pixels. Omit for images that scale with the layout. */
+  width?: number;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const { src, alt = '', width, sizes = '100vw', eager = false, ...rest } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+// Small fixed-width images get 1x/2x/3x variants. Anything else gets a
+// width-based srcset capped at the size of the source file.
+const useDensities = width !== undefined && width * 2 <= src.width;
+const widths = [...[500, 800, 1080, 1600].filter((w) => w < src.width), src.width];
+---
+
+{
+  useDensities ? (
+    <Image src={src} alt={alt} width={width} densities={[1, 2, 3]} loading={loading} {...rest} />
+  ) : (
+    <Image
+      src={src}
+      alt={alt}
+      width={width ?? src.width}
+      widths={widths}
+      sizes={width ? `${width}px` : sizes}
+      loading={loading}
+      data-fluid={width === undefined ? '' : undefined}
+      {...rest}
+    />
+  )
+}

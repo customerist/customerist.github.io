@@ -1,0 +1,73 @@
+---
+import quoteMark from '../assets/images/quote-mark.png';
+import type { CaseStudy } from '../data/case-studies';
+import Img from './Img.astro';
+
+interface Props {
+  study: CaseStudy;
+  number: number;
+}
+
+const { study, number } = Astro.props;
+---
+
+<section class="section-3">
+  <div class="w-layout-blockcontainer container-19 w-container">
+    <div class="w-layout-blockcontainer container-20 w-container">
+      <div class="text-block-8">CASE&nbsp;STUDY&nbsp;# {number}</div>
+      <h1 class="heading-14">{study.client}</h1>
+      <div class="text-block-7">{study.disciplines}</div>
+      <h1 class="heading-15">{study.headline}</h1>
+      <p class="paragraph-6" set:html={study.intro} />
+    </div>
+    <div class="w-layout-blockcontainer w-container">
+      <Img src={study.introImage} width={530} sizes="(max-width: 767px) 100vw, 530px" class="image-9" />
+    </div>
+  </div>
+  <div class="w-layout-blockcontainer container-22 w-container">
+    <div class="w-layout-blockcontainer container-21 w-container">
+      <p class="paragraph-7">
+        <strong class="bold-text-13">THE&nbsp;CHALLENGE<br /><br /></strong><Fragment set:html={study.challenge} />
+      </p>
+      <h1 class="heading-16" set:html={study.challengeHeadline} />
+    </div>
+    <div class="w-layout-blockcontainer container-23 w-container">
+      <p class="paragraph-8">
+        <strong class="bold-text-14">WHAT&nbsp;WE&nbsp;DID<br /><br /></strong><Fragment set:html={study.whatWeDid} />
+      </p>
+      <div class="w-row">
+        {
+          study.steps.map((step, index) => (
+            <div class="w-col w-col-3">
+              <h1 class="heading-17">{String(index + 1).padStart(2, '0')}</h1>
+              <div class="text-block-12">
+                <strong>{step.title}</strong>
+              </div>
+              <p>{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <div class="w-layout-blockcontainer container-24 w-container">
+    <div class="w-layout-blockcontainer container-25 w-container">
+      <p><strong class="bold-text-16">WHAT&nbsp;CHANGED</strong></p>
+      <h1 class="heading-18" set:html={study.whatChangedHeadline} />
+      <p set:html={study.whatChanged} />
+    </div>
+    <div class="w-layout-blockcontainer container-26 w-container">
+      <Img src={study.whatChangedImage} width={407} sizes="(max-width: 479px) 100vw, 407px" class="image-12" />
+    </div>
+  </div>
+  <div class="w-layout-blockcontainer container-27 w-container">
+    <div class="w-layout-blockcontainer container-29 w-container">
+      <Img src={quoteMark} width={61} class="image-11" />
+      <h1 class="heading-19" set:html={study.quote} />
+    </div>
+    <div class="w-layout-blockcontainer container-28 w-container">
+      <div class="text-block-14" set:html={study.attribution} />
+    </div>
+  </div>
+</section>
+<section class="divider"></section>

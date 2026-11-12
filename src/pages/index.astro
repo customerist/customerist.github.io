@@ -1,0 +1,306 @@
+---
+import eastMeetsWest from '../assets/images/east-meets-west.png';
+import chris from '../assets/images/chris-walls.jpg';
+import clients from '../assets/images/clients.png';
+import hero from '../assets/images/hero.png';
+import kpiExplosion from '../assets/images/kpi-explosion.png';
+import map from '../assets/images/map.png';
+import servicesImage from '../assets/images/services.png';
+import signCrm from '../assets/images/sign-crm.png';
+import signCx from '../assets/images/sign-cx.png';
+import signInsights from '../assets/images/sign-insights.png';
+import signLoyalty from '../assets/images/sign-loyalty.png';
+import signPeople from '../assets/images/sign-people.png';
+import tp from '../assets/images/tp-pura.jpg';
+import valueCustomerFirst from '../assets/images/value-customer-first.png';
+import valueDataDriven from '../assets/images/value-data-driven.png';
+import valuePeopleFocused from '../assets/images/value-people-focused.png';
+import Img from '../components/Img.astro';
+import TestimonialSlider from '../components/TestimonialSlider.astro';
+import Base from '../layouts/Base.astro';
+
+const signs = [
+  { image: signInsights, title: 'Insights', text: "You don't understand your customers enough to know whom to prioritise" },
+  { image: signCrm, title: 'CRM', text: 'You send a lot of emails and messages without knowing its value & impact' },
+  { image: signLoyalty, title: 'Loyalty', text: 'You give points and discounts without truly fostering brand preference' },
+  { image: signCx, title: 'CX', text: 'Your experiences are not designed to encourage desirable behaviours' },
+  { image: signPeople, title: 'People', text: "Your team isn't structured nor supported for customer growth" },
+];
+
+const services = [
+  {
+    title: 'Insights & Analytics',
+    text: 'Turn customer data into decisions your teams can actually use.',
+    items: [
+      'Customer segmentation &\u00a0profiling',
+      'Customer research & personas',
+      'Customer analytics & deep-dives',
+      'Customer-centric KPIs & metrics',
+      'Customer lifetime value',
+      'Voice of Customer (VoC)',
+    ],
+  },
+  {
+    title: 'CRM & Engagement',
+    text: 'Build CRM around customer behaviour, not just campaigns and calendars.',
+    items: [
+      'CRM strategy & roadmaps',
+      'Customer engagement',
+      'Personalisation',
+      'CRM operating models',
+      'Martech & CRM requirements',
+      'Lifecycle &\u00a0journey strategy',
+    ],
+  },
+  {
+    title: 'Loyalty & Retention',
+    text: 'Create reasons for customers to stay, return and choose you again.',
+    items: [
+      'Loyalty strategy',
+      'Programme design &\u00a0optimisation',
+      'Member value proposition',
+      'Retention strategy',
+      'Member experiences',
+      'Loyalty measurement & economics',
+    ],
+  },
+  {
+    title: 'Customer Experience',
+    text: 'Design experiences around the moments that drive customer value.',
+    items: [
+      'CX strategy & roadmaps',
+      'Customer journey mapping',
+      'Experience design',
+      'Service design',
+      'CX measurement & optimisation',
+      'Voice of Customer programmes',
+    ],
+  },
+  {
+    title: 'People & Organisation',
+    text: 'Give teams the structure, skills and ways of working to deliver customer growth.',
+    items: [
+      'Customer organisation design',
+      'Roles, governance & accountabilities',
+      'Mentoring & coaching',
+      'Customer capability building',
+      'Team structure & ways of working',
+      'Leadership alignment',
+    ],
+  },
+];
+
+const values = [
+  {
+    title: 'Customer-First',
+    text: 'Start with what customers actually value — not what the organisation assumes they value.',
+    image: valueCustomerFirst,
+    width: 147,
+  },
+  {
+    title: 'Data-Driven',
+    text: 'Use data to create clarity and make better decisions, not simply to produce more dashboards.',
+    image: valueDataDriven,
+    width: 166,
+  },
+  {
+    title: 'People-Focused',
+    text: 'Build the teams, skills and ways of working that allow customer strategy to survive after the consultants leave.',
+    image: valuePeopleFocused,
+    width: 145,
+    imageClass: 'image-8',
+  },
+];
+
+const founders = [
+  {
+    name: 'Chris Walls',
+    image: chris,
+    bio: 'With a degree in Mathematics and Philosophy, Chris built his career globally as an analyst and leader in industries including grocery, FMCG, airlines, gaming and hospitality, consumer finance, beauty and fashion. He led customer insights at Qantas Frequent Flyer and was Head of Customer and Vice President Marketing for Sephora across Asia Pacific.',
+  },
+  {
+    name: 'TP Pura',
+    image: tp,
+    bio: 'With a degree in Statistics, TP began her career in data & customer analytics for global banks before pivoting into beauty and luxury. She grew her scope to include CRM, loyalty, and customer experience. She was Chief CX Officer at L’Oréal Luxe, leading omnichannel customer initiatives across Asia, the Middle East, and North Africa.',
+  },
+];
+---
+
+<Base
+  title="Customerist | Customer Strategy, Insights, CRM & Loyalty, CX Consultancy"
+  description="Customer-first is a claim. We build the capability. Customerist helps brands turn customer data, CRM, loyalty and CX into strategies their teams can actually run."
+>
+  <section class="hero-heading-left">
+    <div class="hero-wrapper">
+      <div class="hero-split">
+        <h1 class="main-heading">Customer-first is a claim. <br />We build the capability.</h1>
+        <p class="margin-bottom-24px">
+          We are experienced customer chiefs, marketers and analysts, turning fragmented data and stalled CRM &amp; loyalty programmes into a strategy your
+          team can actually run.
+        </p>
+        <a href="#customerfirst" class="button w-button">Five signs you're not as customer-first as you think ↓</a>
+      </div>
+      <div class="hero-split">
+        <Img src={hero} class="shadow-two" eager />
+      </div>
+    </div>
+  </section>
+
+  <section id="customerfirst" class="customerfirst">
+    <div class="container-10">
+      <h2 class="centered-heading">
+        Five signs you're not <span class="text-span"><em class="italic-text">customer-first</em></span>
+      </h2>
+      <div class="services-grid">
+        {
+          signs.map((sign) => (
+            <div class="services-cdp">
+              <Img src={sign.image} width={80} class="pricing-image" />
+              <h3 class="heading-5">{sign.title}</h3>
+              <p class="pricing-card-text">{sign.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-2">
+    <h2 class="centered-heading">From start-ups to global brands, <br />across industries and markets</h2>
+    <div id="w-node-ae3e522c-5067-1549-5253-f1c269cb4e72-3b8e1790" class="w-layout-layout quick-stack-5 wf-layout-layout">
+      <div class="w-layout-cell">
+        <Img src={map} sizes="(max-width: 808px) 100vw, 808px" class="image-7" />
+      </div>
+      <div class="w-layout-cell cell-4">
+        <Img src={clients} sizes="(max-width: 1316px) 100vw, 1316px" class="image-6" />
+      </div>
+    </div>
+  </section>
+
+  <TestimonialSlider />
+
+  <section id="services" class="features-table">
+    <h2 class="centered-heading">Our Services</h2>
+    <p class="centered-subheading-copy">From diagnosis to execution, we help teams build the capabilities behind customer growth.</p>
+    <div class="div-block-1">
+      {
+        services.slice(0, 3).map((service) => (
+          <div class="services-cdp">
+            <h3 class="services-heading">{service.title}</h3>
+            <p class="services-text">{service.text}</p>
+            <ul role="list" class="list-6">
+              {service.items.map((item) => (
+                <li class="list-item-2">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="div-block-2">
+      {
+        services.slice(3).map((service) => (
+          <div class="services-cdp">
+            <h3 class="services-heading">{service.title}</h3>
+            <p class="services-text">{service.text}</p>
+            <ul role="list" class="list-6">
+              {service.items.map((item) => (
+                <li class="list-item-2">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <Img
+        src={servicesImage}
+        id="w-node-f6ad227f-f4c8-6ef2-4e76-e19ed45db1da-3b8e1790"
+        sizes="(max-width: 1024px) 100vw, 1024px"
+        class="image-13"
+      />
+    </div>
+  </section>
+
+  <section id="philosophy" class="features-table">
+    <h2 class="centered-heading">Our Philosophy &amp; Values</h2>
+    <p class="centered-subheading-copy">
+      We don't believe customer insight belongs in a silo. <br />It should shape the decisions, experiences and priorities of the people running the
+      business.
+    </p>
+    <div class="div-block-1">
+      {
+        values.map((value) => (
+          <div class="services-cdp">
+            <h3 class="services-heading">{value.title}</h3>
+            <p class="services-text">{value.text}</p>
+            <Img src={value.image} width={value.width} class={value.imageClass} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="testimonial-image-left">
+    <section id="linkedin" class="container-18">
+      <div class="testimonial-wrapper-four">
+        <div class="testimonial-left">
+          <Img src={kpiExplosion} class="testimonial-image-four" />
+        </div>
+        <div class="testimonial-right">
+          <div class="heading-small margin-bottom-32px">
+            The north star metric conversation is one of the most valuable things a leadership team can have, and one of the least likely to happen.
+          </div>
+          <p class="testimonial-text-four">
+            We have more customer metrics than ever. That hasn't necessarily made us better at understanding customers. The problem isn't measurement, it's
+            knowing which measures should actually change a decision.
+          </p>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7492822240573620226" target="_blank" rel="noopener" class="link"
+            >Read more of our posts on Linkedin↗</a
+          >
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section>
+    <section id="about" class="w-layout-blockcontainer container-33 w-container">
+      <h2 class="heading-with-sub">Customerist is your East-meets-West partner.</h2>
+      <div class="w-layout-blockcontainer container-32 w-container">
+        <div class="w-layout-blockcontainer container-34 w-container">
+          <p class="paragraph-10">
+            Our founders are from the UK and the Philippines, met in Singapore, and have lived and worked across Europe, Asia, Australia and the US. Between
+            us, we’ve spent decades building businesses and leading teams across borders.<br /><br />We understand the obvious complexities — currencies,
+            languages, time zones and regulation — and the harder ones: how culture shapes the way people work, buy and make decisions.<br /><br />We’ve seen
+            European businesses approach Asia with executives who barely know the market, or manage it from an HQ twelve hours away. We’ve seen Asian
+            businesses enter Europe assuming what worked at home will translate unchanged.<br /><br /><strong>It rarely does.<br /><br /></strong>Successful
+            expansion means knowing what to keep, what to adapt and what to rethink entirely.<br /><br />Whether you’re a Western business looking East or an
+            Asian business looking West, we bring <strong>decades of professional experience across both, backed by lives that genuinely straddle the two.</strong>
+          </p>
+        </div>
+        <div class="w-layout-blockcontainer container-35 w-container">
+          <Img src={eastMeetsWest} />
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="about">
+    <div class="container-11">
+      <h2 class="heading-with-sub">The Founders</h2>
+      <p class="centered-subheading-copy">
+        Customerist is a customer strategy consultancy that helps brands with customer insights, CRM, loyalty, CX and the teams behind them.
+        <br /><br />Founded by two data analysts turned C-suite leaders with 20+ years at global brands.
+      </p>
+      <div class="team-grid">
+        {
+          founders.map((founder) => (
+            <div class="team-card">
+              <Img src={founder.image} alt={founder.name} sizes="200px" class="team-member-image" />
+              <div class="team-member-name">{founder.name}</div>
+              <p class="paragraph-2">{founder.bio}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

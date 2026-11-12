@@ -1,0 +1,74 @@
+---
+import logo from '../assets/images/logo.png';
+import Img from './Img.astro';
+
+const path = Astro.url.pathname.replace(/(\.html|\/)$/, '') || '/';
+const links = [
+  { href: '/#about', label: 'About' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#philosophy', label: 'Our Thinking' },
+  { href: '/casestudies', label: 'Case Studies' },
+];
+---
+
+<div class="navbar-logo-left-4">
+  <div data-collapse="medium" role="banner" class="navbar-logo-left-container-4 shadow-three w-nav">
+    <div class="navbar-wrapper-7">
+      <a href="/" aria-current={path === '/' ? 'page' : undefined} class:list={['navbar-brand-4 w-nav-brand', { 'w--current': path === '/' }]}>
+        <Img src={logo} alt="Customerist" width={180} eager />
+      </a>
+      <nav id="nav-menu" class="nav-menu-wrapper-4 w-nav-menu">
+        <ul role="list" class="nav-menu-two-4 w-list-unstyled">
+          {
+            links.map(({ href, label }) => (
+              <li>
+                <a href={href} aria-current={path === href ? 'page' : undefined} class:list={['w-nav-link', { 'w--current': path === href }]}>
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+          <li class="mobile-margin-top-13"><a href="#footer" class="button-primary-5 w-button">Get Started</a></li>
+        </ul>
+      </nav>
+      <div class="menu-button-4 w-nav-button" role="button" tabindex="0" aria-label="menu" aria-controls="nav-menu" aria-haspopup="menu" aria-expanded="false">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Stands in for Webflow's navbar script: below 992px the CSS hides the menu
+  // and shows the button, and these two hooks are what its styles key off.
+  const nav = document.querySelector<HTMLElement>('.w-nav');
+  const menu = nav?.querySelector<HTMLElement>('.w-nav-menu');
+  const button = nav?.querySelector<HTMLElement>('.w-nav-button');
+
+  if (nav && menu && button) {
+    const setOpen = (open: boolean) => {
+      menu.toggleAttribute('data-nav-menu-open', open);
+      button.classList.toggle('w--open', open);
+      button.setAttribute('aria-expanded', String(open));
+    };
+    const isOpen = () => button.classList.contains('w--open');
+
+    button.addEventListener('click', () => setOpen(!isOpen()));
+    button.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        setOpen(!isOpen());
+      }
+    });
+    menu.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', (event) => {
+      if (isOpen() && !nav.contains(event.target as Node)) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', () => setOpen(false));
+  }
+</script>

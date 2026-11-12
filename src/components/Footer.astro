@@ -1,0 +1,88 @@
+---
+import logo from '../assets/images/logo.png';
+import { site } from '../config';
+import Img from './Img.astro';
+---
+
+<section id="footer" class="footer-light-2">
+  <div class="container-17">
+    <div class="footer-wrapper-two-2">
+      <div class="w-layout-blockcontainer footer-brand w-container">
+        <Img src={logo} alt="Customerist" width={330} />
+        <p class="paragraph-4">
+          <br />Got a question or a challenge?<br />Email us at <strong class="bold-text-12">{site.email}</strong><br />or drop us a message here.
+        </p>
+      </div>
+      <div class="form-block w-form">
+        <form
+          id="email-form"
+          name="email-form"
+          class="form"
+          method="post"
+          enctype="text/plain"
+          action={`mailto:${site.email}`}
+          data-email={site.email}
+          data-endpoint={site.formEndpoint}
+        >
+          <label for="name">Name</label>
+          <input class="w-input" maxlength="256" name="name" type="text" id="name" autocomplete="name" />
+          <label for="email">Email Address</label>
+          <input class="w-input" maxlength="256" name="email" type="email" id="email" autocomplete="email" required />
+          <label for="Message">Message</label>
+          <input class="w-input" maxlength="256" name="Message" type="text" id="Message" />
+          <input type="submit" data-wait="Please wait..." class="submit-button w-button" value="Submit" />
+        </form>
+        <div class="w-form-done" role="status"><div>Thank you! Your submission has been received!</div></div>
+        <div class="w-form-fail" role="alert"><div>Oops! Something went wrong while submitting the form.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#email-form');
+
+  if (form) {
+    const done = form.parentElement!.querySelector<HTMLElement>('.w-form-done')!;
+    const fail = form.parentElement!.querySelector<HTMLElement>('.w-form-fail')!;
+    const submit = form.querySelector<HTMLInputElement>('input[type="submit"]')!;
+    const { endpoint, email } = form.dataset;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '');
+      const from = String(data.get('email') ?? '');
+      const message = String(data.get('Message') ?? '');
+
+      // GitHub Pages can't receive form posts. Until an endpoint is set in
+      // src/config.ts, hand the message to the visitor's mail client.
+      if (!endpoint) {
+        const subject = `Website enquiry${name ? ` from ${name}` : ''}`;
+        const body = `${message}\n\n${name}\n${from}`;
+        window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+
+      const label = submit.value;
+      submit.value = submit.dataset.wait ?? label;
+      submit.disabled = true;
+      fail.style.display = 'none';
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name, email: from, message }),
+        });
+        if (!response.ok) throw new Error(`Form endpoint returned ${response.status}`);
+        form.style.display = 'none';
+        done.style.display = 'block';
+      } catch {
+        fail.style.display = 'block';
+      } finally {
+        submit.value = label;
+        submit.disabled = false;
+      }
+    });
+  }
+</script>

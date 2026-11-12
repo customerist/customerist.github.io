@@ -1,0 +1,19 @@
+/* Astro's <Image> always sets width and height attributes; Webflow's markup
+   only set a width on a handful of fixed-size images. The attributes count as
+   CSS sizes, which changes how images behave in grid and flex containers, so
+   they are neutralised here. :where() keeps specificity at zero so every
+   Webflow class still wins. */
+:where(img) {
+  height: auto;
+}
+
+:where(img[data-fluid]) {
+  width: auto;
+}
+
+/* Webflow's script animated in-page anchor jumps. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
