@@ -2,19 +2,78 @@
    loaded after it, so a rule with the same selector wins. */
 
 :root {
-  --ink: #1a1b1f;
-  /* Grey for secondary text. Webflow's #949599 was 2.7:1 on the cream. */
-  --muted: #5f6064;
-  /* Brand red (#ec1d25) is 4.0:1 on cream and 4.4:1 under white text, short
-     of the 4.5:1 small text needs. These two are the nearest reds that pass:
-     one for small red text, one for red surfaces that carry small text. */
-  --red-ink: #c0141b;
-  --red-surface: #d8181f;
+  /* Primitive palette — Constructivist printmaking: warm archival cream,
+     deep carbon ink, and vermilion red. */
+  --cream-50: #fffcf7;
+  --cream-100: #fbf4ea;
+  --cream-200: #f3e7d6;
+  --cream-300: #dccfc0;
+  --cream-400: #9e9183;
+
+  --ink-900: #1a1b1f;
+  --ink-700: #3d3935;
+  --ink-500: #5c564f;
+
+  --red-500: #ec1d25;
+  --red-600: #d4171e;
+  --red-700: #b51218;
+  --red-800: #8f0d12;
+
+  --blush-100: #f9e6de;
+  --blush-200: #ebcfc3;
+
+  /* Semantic surface roles */
+  --canvas: var(--cream-100);
+  --surface-elevated: var(--cream-50);
+  --surface-tinted: var(--cream-200);
+  --surface-outcome: var(--blush-100);
+  --red-surface: var(--red-600);
+
+  /* Semantic text roles
+     - --ink (15.8:1 on canvas) owns primary reading & content headings.
+     - --muted (6.2:1 on canvas, 5.5:1 on tinted) is warm stone, replacing
+       Webflow's cold #949599 (2.7:1).
+     - --red-ink (6.18:1 on canvas, 5.52:1 on outcome blush) passes WCAG AA
+       at every text size. */
+  --ink: var(--ink-900);
+  --ink-secondary: var(--ink-700);
+  --muted: var(--ink-500);
+  --red-brand: var(--red-500);
+  --red-ink: var(--red-700);
+  --red-ink-hover: var(--red-800);
+  --on-red: var(--cream-50);
+  --on-red-secondary: #fde8e5;
+
+  /* Borders & controls (border-control is 3.1:1 on cream-50/cream-200) */
+  --rule: var(--cream-300);
+  --rule-strong: var(--ink-900);
+  --border-control: var(--cream-400);
+
+  /* Semantic status roles */
+  --status-success-bg: #edf5ef;
+  --status-success-ink: #18472a;
+  --status-success-border: #2a6b42;
+  --status-error-bg: #fdf0ef;
+  --status-error-ink: #8c1016;
+  --status-error-border: var(--red-700);
+  --status-info-bg: var(--cream-50);
+  --status-info-ink: var(--ink-900);
+  --status-info-border: var(--ink-900);
 }
 
 html {
   /* Anchor jumps stop below the fixed header. */
   scroll-padding-top: 90px;
+  accent-color: var(--red-ink);
+  caret-color: var(--red-ink);
+  scrollbar-color: var(--border-control) var(--canvas);
+}
+
+body,
+.body,
+.body-2 {
+  background-color: var(--canvas);
+  color: var(--ink);
 }
 
 /* Webflow's script animated in-page anchor jumps. */
@@ -60,21 +119,32 @@ li {
 }
 
 ::selection {
+  background: var(--red-surface);
+  color: var(--on-red);
+}
+
+.testimonial-slider-small ::selection,
+.testimonial-image-left ::selection {
   background: var(--ink);
-  color: #fbf4ea;
+  color: var(--canvas);
 }
 
 /* Focus */
 
 :focus-visible,
-.w-input:focus-visible {
+.w-input:focus-visible,
+.nav-link-2:focus-visible,
+.nav-link-3:focus-visible,
+.nav-link-4:focus-visible,
+.testimonial-slider-left:focus-visible,
+.testimonial-slider-right:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 2px;
 }
 
 .testimonial-slider-small :focus-visible,
 .testimonial-image-left :focus-visible {
-  outline-color: #fff;
+  outline-color: var(--on-red);
 }
 
 .skip-link {
@@ -84,7 +154,7 @@ li {
   z-index: 2000;
   padding: 12px 16px;
   background: var(--ink);
-  color: #fff;
+  color: var(--surface-elevated);
   transform: translateY(-200%);
 }
 
@@ -92,39 +162,246 @@ li {
   transform: none;
 }
 
-/* Colour: text that failed contrast, and Webflow's default blue */
+/* Colour system: hierarchy, surfaces, borders, and accessible roles */
 
+/* Warm editorial section rules replacing Webflow's cold #e4ebf3 & #949599 */
+.hero-heading-left,
+.customerfirst,
+.features-table,
+.about,
+.divider,
+.gallery-slider {
+  border-color: var(--rule);
+}
+
+/* Content headings & subheadings use primary ink instead of Webflow #333 or
+   scattered #ec1d25, reserving red for diagnosis, actions, and proof regions. */
+.heading-5,
+.heading-6,
+.heading-7,
+.heading-8,
+.heading-9,
+.services-heading,
+.team-member-name,
+.heading-14,
+.heading-16,
+.heading-with-sub {
+  color: var(--ink);
+}
+
+.centered-subheading,
+.centered-subheading-copy {
+  color: var(--ink-secondary);
+}
+
+/* Constructivist top rule and red marker for Services & Philosophy columns so
+   structure carries the hierarchy without painting every heading red. */
+#services .services-cdp,
+#philosophy .services-cdp {
+  border-top: 2px solid var(--ink);
+  padding-top: 20px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+#philosophy .services-cdp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#philosophy .services-cdp img {
+  align-self: center;
+  margin-top: 24px;
+}
+
+/* Secondary & metadata text */
 .list-6,
 .list-item-2,
-.text-block-8 {
+.text-block-8,
+.tagline,
+.clients-caption,
+.form-note {
   color: var(--muted);
 }
 
-.text-block-7,
-.bold-text-12,
-.bold-text-13,
-.bold-text-14,
-.bold-text-16 {
+#services .list-item-2::marker {
   color: var(--red-ink);
 }
 
+/* Diagnostic highlights, kickers, step counters, and current-page wayfinding */
+.text-span,
+.text-span-2,
+.text-span-3,
+.text-block-7,
+.text-block-15,
+.heading-17,
+.bold-text-12,
+.bold-text-13,
+.bold-text-14,
+.bold-text-15,
+.bold-text-16,
 .w-nav-link.w--current {
   color: var(--red-ink);
 }
 
+/* Primary actions & full-bleed constructivist red persuasion regions */
 .button,
-.submit-button,
-.testimonial-slider-small,
-.testimonial-image-left {
+.submit-button {
   background-color: var(--red-surface);
+  color: var(--on-red);
 }
 
 .button:hover,
 .submit-button:hover {
   background-color: var(--ink);
+  color: var(--surface-elevated);
+}
+
+.button-primary-5 {
+  background-color: var(--ink);
+  color: var(--surface-elevated);
+}
+
+.button-primary-5:hover {
+  background-color: var(--red-surface);
+  color: var(--on-red);
+}
+
+.testimonial-slider-small,
+.testimonial-image-left {
+  background-color: var(--red-surface);
+  border-color: var(--rule);
+}
+
+.centered-heading-3,
+.heading-small.margin-bottom-32px,
+.testimonial-text-four,
+.testimonial-image-left .link {
+  color: var(--on-red);
+}
+
+.testimonial-image-four {
+  border-color: var(--on-red-secondary);
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--surface-elevated);
+  color: var(--ink);
+  border: 1px solid rgb(26 27 31 / 0.08);
+  box-shadow: 0 12px 32px rgb(26 27 31 / 0.16);
+}
+
+.testimonial-card > p,
+.italic-text-2,
+.italic-text-3,
+.italic-text-4,
+.paragraph-3,
+.paragraph-11,
+.paragraph-12 {
+  font-size: clamp(16px, 14.5px + 0.3vw, 19px);
+  line-height: 1.55;
+  font-style: normal;
+}
+
+.testimonial-info {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+/* Elevated & banded editorial surfaces */
+.navbar-logo-left-container-4.shadow-three {
+  background-color: var(--canvas);
+}
+
+.nav-menu-wrapper-4[data-nav-menu-open] {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 991px) {
+  .nav-menu-two-4 {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--rule);
+    box-shadow: 0 12px 32px rgb(26 27 31 / 0.12);
+  }
+
+  .w-nav-button.w--open,
+  .menu-button-4.w--open {
+    background-color: var(--ink);
+    color: var(--surface-elevated);
+  }
+}
+
+.container-11,
+.team-grid,
+.team-card {
+  background-color: var(--surface-tinted);
+}
+
+.container-11 {
+  border: 1px solid var(--rule);
+}
+
+.team-member-image {
+  border: 3px solid var(--red-brand);
+}
+
+.container-24 {
+  background-color: var(--surface-outcome);
+  border: 1px solid var(--blush-200);
+  padding: 40px;
+  gap: 32px;
+  align-items: center;
+}
+
+.container-25 {
+  margin: 0;
+}
+
+.footer-light-2 {
+  background-color: var(--surface-tinted);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ink);
+  padding: 64px 40px;
+  /* "Talk to us" lands with the whole form in view, not the footer's padding. */
+  scroll-margin-top: -70px;
+}
+
+@media screen and (max-width: 767px) {
+  .container-24 {
+    padding: 28px 20px;
+  }
+
+  .footer-light-2 {
+    padding: 40px 20px;
+  }
+}
+
+.w-input {
+  height: auto;
+  min-height: 44px;
+  /* 16px stops iOS zooming the page when a field takes focus. */
+  font-size: 16px;
+  background-color: var(--surface-elevated);
+  color: var(--ink);
+  border: 1px solid var(--border-control);
+}
+
+.w-input::placeholder {
+  color: var(--muted);
+}
+
+.w-input:hover {
+  border-color: var(--ink-secondary);
 }
 
 .w-input:focus {
+  background-color: #fff;
   border-color: var(--ink);
 }
 
@@ -189,7 +466,7 @@ li {
   }
 }
 
-/* Tap targets */
+/* Tap targets & buttons */
 
 .button,
 .button-primary-5 {
@@ -198,14 +475,108 @@ li {
   min-height: 44px;
 }
 
+.button {
+  margin-top: 16px;
+  padding: 12px 24px;
+  font-weight: 700;
+}
+
 .submit-button {
   min-height: 44px;
-  padding-inline: 20px;
+  margin-top: 16px;
+  padding-inline: 24px;
+  font-weight: 700;
+}
+
+.submit-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 .link {
   display: inline-block;
   padding-block: 12px;
+}
+
+/* Responsive grids & alignment polish */
+
+#customerfirst .services-grid {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 32px;
+}
+
+#customerfirst .heading-5 {
+  align-self: center;
+}
+
+#customerfirst .pricing-card-text {
+  text-align: center;
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.div-block-1,
+.div-block-2 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  align-items: start;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.div-block-2 {
+  margin-top: 40px;
+}
+
+.container-33 .heading-with-sub,
+.about .heading-with-sub {
+  margin-top: 0;
+}
+
+.container-32 {
+  max-width: 1140px;
+  margin-inline: auto;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .hero-wrapper {
+    margin-bottom: 0;
+  }
+
+  #customerfirst .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 24px;
+  }
+
+  .div-block-1,
+  .div-block-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .container-32 {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .container-34,
+  .container-35 {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #customerfirst .services-grid,
+  .div-block-1,
+  .div-block-2 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* On phones the slider arrows sat on top of the quote text. */
@@ -234,16 +605,28 @@ li {
 
 /* Contact form */
 
-/* "Talk to us" lands with the whole form in view, not the footer's padding. */
-.footer-light-2 {
-  scroll-margin-top: -70px;
+.footer-wrapper-two-2 {
+  max-width: 1140px;
+  margin-inline: auto;
+  gap: 48px;
+  align-items: flex-start;
 }
 
-.w-input {
-  height: auto;
-  min-height: 44px;
-  /* 16px stops iOS zooming the page when a field takes focus. */
-  font-size: 16px;
+.form-block {
+  padding-inline: 0;
+  max-width: 560px;
+  width: 100%;
+}
+
+.form label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.form label:first-of-type {
+  margin-top: 0;
 }
 
 textarea.w-input {
@@ -256,6 +639,14 @@ textarea.w-input {
 .w-form-fail a {
   color: var(--red-ink);
   font-weight: bold;
+}
+
+.paragraph-4 a:hover,
+.form-status a:hover,
+.w-form-fail a:hover,
+.footer-social a:hover,
+.case-cta a:hover {
+  color: var(--red-ink-hover);
 }
 
 .footer-social {
@@ -284,11 +675,28 @@ textarea.w-input {
   color: var(--muted);
 }
 
+.w-form-done {
+  margin-top: 10px;
+  padding: 16px;
+  background-color: var(--status-success-bg);
+  color: var(--status-success-ink);
+  border: 1px solid var(--status-success-border);
+}
+
+.w-form-fail {
+  margin-top: 10px;
+  padding: 16px;
+  background-color: var(--status-error-bg);
+  color: var(--status-error-ink);
+  border: 1px solid var(--status-error-border);
+}
+
 .form-status {
   margin-top: 10px;
   padding: 16px;
-  background-color: #fff;
-  border: 1px solid var(--ink);
+  background-color: var(--status-info-bg);
+  color: var(--status-info-ink);
+  border: 1px solid var(--status-info-border);
 }
 
 .form-status[hidden] {
@@ -304,17 +712,59 @@ textarea.w-input {
 }
 
 .case-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 32px;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
 
-.case-steps > li {
+.case-steps::before,
+.case-steps::after {
+  display: none;
+}
+
+.case-steps > li,
+.case-steps > li.w-col {
   display: block;
+  float: none;
+  width: auto;
+  padding-inline: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+@media (max-width: 991px) {
+  .case-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .case-steps {
+    grid-template-columns: 1fr;
+  }
 }
 
 .case-quote {
   margin: 0;
+}
+
+.container-27 {
+  align-items: flex-start;
+  padding-inline: 0;
+}
+
+.container-28,
+.container-29 {
+  margin-left: 0;
+}
+
+.heading-19 {
+  margin-top: 12px;
+  padding-left: 0;
 }
 
 .case-cta {

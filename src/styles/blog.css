@@ -5,7 +5,6 @@
 .blog-list,
 .blog-post {
   --serif: "Testtiemposfine Bf 66457 A 50 E 62 Cd", "Times New Roman", serif;
-  --rule: rgb(26 27 31 / 0.18);
 
   width: min(100%, 880px);
   margin-inline: auto;
@@ -76,8 +75,9 @@
 .blog-draft {
   margin-left: 8px;
   padding: 2px 8px;
-  background-color: var(--ink);
-  color: #fff;
+  background-color: var(--surface-tinted);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
   font-weight: bold;
 }
 
@@ -194,7 +194,11 @@
   text-underline-offset: 0.2em;
 }
 
-.blog-prose a:hover {
+.blog-prose a:hover,
+.blog-empty a:hover,
+.blog-back:hover,
+.blog-cta:hover {
+  color: var(--red-ink-hover);
   text-decoration-thickness: 2px;
 }
 
@@ -215,8 +219,10 @@
 
 .blog-prose blockquote {
   margin: 1.6em 0;
-  padding: 0;
+  padding: 20px 24px;
+  background-color: var(--surface-tinted);
   border: 0;
+  border-top: 2px solid var(--ink);
   font-family: var(--serif);
   font-size: 26px;
   font-style: italic;
@@ -227,7 +233,7 @@
   content: "\201C";
   display: block;
   height: 0.55em;
-  color: #ec1d25;
+  color: var(--red-ink);
   font-size: 3em;
   font-style: normal;
   line-height: 1;
@@ -240,7 +246,8 @@
 
 .blog-prose code {
   padding: 0.1em 0.35em;
-  background-color: rgb(26 27 31 / 0.08);
+  background-color: var(--surface-tinted);
+  color: var(--ink);
   font-size: 0.9em;
 }
 
@@ -287,7 +294,7 @@
 
 .blog-author__photos img + img {
   margin-left: -12px;
-  border: 2px solid #fbf4ea;
+  border: 2px solid var(--canvas);
 }
 
 .blog-cta {
