@@ -74,7 +74,7 @@ export const caseStudies: CaseStudy[] = [
       'Mozilla knew who to target, where to find them and how to reach them — with a sharper case for mission-aligned sponsors and collaborators.<br><br>MozFest was reframed from an event into a platform for growing a diverse, engaged community, while staying true to its purposeful DNA.',
     whatChangedImage: case2WhatChanged,
     quote:
-      "<strong>Customerist helped us make sense of years of research and turn it into something immediately actionable… We're entering MozFest 2025 with a growth strategy that feels both ambitious and achievable.</strong>",
+      "Customerist helped us make sense of years of research and turn it into something immediately actionable… We're entering MozFest 2025 with a growth strategy that feels both ambitious and achievable.",
     attribution: '<strong>Lauren Hendry Parsons</strong><br>Director of Communications, Mozilla Foundation',
   },
   {
@@ -100,7 +100,7 @@ export const caseStudies: CaseStudy[] = [
       'Mozilla now has specific cities per audience, clear tiering logic, defined engagement modes and a shared language across strategy, editorial and distribution — plus a defensible rationale for 2026 investment decisions.<br><br>Most importantly, they know where <strong>not</strong> to spend energy.',
     whatChangedImage: case3WhatChanged,
     quote:
-      '<strong>Re-engaging Customerist for a second project was an easy decision. They bring structure, sharp thinking, and a genuine understanding of how movements grow — not just how campaigns run.</strong>',
-    attribution: 'VP Strategic Communications, Mozilla Foundation',
+      'Re-engaging Customerist for a second project was an easy decision. They bring structure, sharp thinking, and a genuine understanding of how movements grow — not just how campaigns run.',
+    attribution: '<strong>VP Strategic Communications</strong><br>Mozilla Foundation',
   },
 ];
