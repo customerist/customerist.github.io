@@ -1,8 +1,7 @@
 ---
 title: Only as Good as the Triggers
 description: Triggered emails work when someone is actively thinking about the logic behind the flow. Without that, AI just makes the noise faster and better formatted.
-date: 2026-11-15
-author: Chris Walls & TP Pura
+date: 2026-08-06
 cover: ../../assets/images/only-as-good-as-the-triggers.jpg
 coverAlt: 'Customerist cover reading: The email fired. The question is whether it should have.'
 ---

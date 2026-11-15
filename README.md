@@ -31,7 +31,7 @@ Each file starts with these details:
 title: The title of the post
 description: One or two sentences for the post list and search engines.
 date: 2026-11-12
-author: Chris Walls            # or: TP Pura, or: Chris Walls & TP Pura
+author: Chris Walls            # optional; or: TP Pura, or: Chris Walls & TP Pura
 cover: ./north-star-cover.png  # optional, an image saved next to the post
 coverAlt: What the image shows # optional
 draft: true                    # optional, keeps it off the live site

@@ -10,7 +10,8 @@ const blog = defineCollection({
       /** One or two sentences. Shown in the post list and to search engines. */
       description: z.string(),
       date: z.coerce.date(),
-      author: z.enum(['Chris Walls', 'TP Pura', 'Chris Walls & TP Pura']),
+      /** Optional. Leave out to publish without a byline. */
+      author: z.enum(['Chris Walls', 'TP Pura', 'Chris Walls & TP Pura']).optional(),
       /** Path to an image next to the post, e.g. ./cover.png. */
       cover: image().optional(),
       coverAlt: z.string().default(''),

@@ -14,7 +14,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const photos = [post.data.author.includes('Chris') && chris, post.data.author.includes('TP') && tp].filter((photo) => photo !== false);
+const author = post.data.author;
+const photos = author ? [author.includes('Chris') && chris, author.includes('TP') && tp].filter((photo) => photo !== false) : [];
 ---
 
 <Base title={`${post.data.title} | Customerist`} description={post.data.description}>
@@ -23,7 +24,7 @@ const photos = [post.data.author.includes('Chris') && chris, post.data.author.in
       <a href="/blogs" class="blog-back">← All posts</a>
       <h1 class="blog-post__title">{post.data.title}</h1>
       <p class="blog-meta">
-        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · {post.data.author}
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{author && ` · ${author}`}
         {post.data.draft && <span class="blog-draft">Draft, not published</span>}
       </p>
     </header>
@@ -35,14 +36,18 @@ const photos = [post.data.author.includes('Chris') && chris, post.data.author.in
     </div>
 
     <footer class="blog-post__footer">
-      <div class="blog-author">
-        <div class="blog-author__photos">
-          {photos.map((photo) => <Img src={photo} alt="" width={64} />)}
-        </div>
-        <p>
-          Written by <strong>{post.data.author}</strong>, {photos.length > 1 ? 'founders' : 'co-founder'} of Customerist.
-        </p>
-      </div>
+      {
+        author && (
+          <div class="blog-author">
+            <div class="blog-author__photos">
+              {photos.map((photo) => <Img src={photo} alt="" width={64} />)}
+            </div>
+            <p>
+              Written by <strong>{author}</strong>, {photos.length > 1 ? 'founders' : 'co-founder'} of Customerist.
+            </p>
+          </div>
+        )
+      }
       <a href="#footer" class="blog-cta">Facing something similar? Tell us what's stuck&nbsp;↓</a>
     </footer>
   </article>
