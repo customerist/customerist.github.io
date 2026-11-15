@@ -644,8 +644,7 @@ textarea.w-input {
 .paragraph-4 a:hover,
 .form-status a:hover,
 .w-form-fail a:hover,
-.footer-social a:hover,
-.case-cta a:hover {
+.footer-social a:hover {
   color: var(--red-ink-hover);
 }
 
@@ -765,18 +764,6 @@ textarea.w-input {
 .heading-19 {
   margin-top: 12px;
   padding-left: 0;
-}
-
-.case-cta {
-  margin-top: 30px;
-}
-
-.case-cta a {
-  display: inline-block;
-  font-size: 120%;
-  padding-block: 12px;
-  color: var(--red-ink);
-  font-weight: bold;
 }
 
 /* Motion
@@ -980,7 +967,6 @@ textarea.w-input {
 .button,
 .submit-button,
 .w-nav-link,
-.case-cta a,
 .link,
 .w-input {
   transition:
@@ -994,7 +980,6 @@ textarea.w-input {
   color: var(--red-ink);
 }
 
-.case-cta a:hover,
 .link:hover {
   text-decoration-thickness: 2px;
 }

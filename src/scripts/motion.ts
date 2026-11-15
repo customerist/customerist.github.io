@@ -62,7 +62,7 @@ const plan: Entry[] = [
   { selector: '.paragraph-8', animation: 'rise' },
   { selector: '.case-steps > li', animation: 'rise', stagger: true },
   { selector: '.image-11', animation: 'pop' },
-  { selector: '.heading-19, .text-block-14, .case-cta', animation: 'rise' },
+  { selector: '.heading-19, .text-block-14', animation: 'rise' },
   { selector: '.divider', animation: 'draw' },
 
   // Blog
