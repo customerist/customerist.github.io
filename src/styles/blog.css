@@ -58,11 +58,9 @@
 }
 
 .blog-card__cover {
+  /* Show the whole cover at its own shape, never cropped. */
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  /* Covers are often portrait with the title at the top; keep that part. */
-  object-position: top;
+  height: auto;
 }
 
 .blog-meta {
@@ -315,6 +313,8 @@
 
   .blog-card__cover {
     order: -1;
+    /* Keep portrait covers from filling the whole screen on phones. */
+    max-width: 320px;
   }
 
   .blog-prose {
