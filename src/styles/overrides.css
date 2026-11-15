@@ -653,15 +653,25 @@ textarea.w-input {
 }
 
 .footer-social a {
-  display: inline-block;
-  padding-block: 12px;
+  /* Icon link: pad the 32px icon out to a 44px tap target. */
+  display: inline-flex;
+  padding: 6px;
+  margin-left: -6px;
   color: var(--red-ink);
-  font-weight: bold;
+  transition: color 150ms;
+}
+
+.footer-social svg {
+  display: block;
 }
 
 @media (max-width: 479px) {
   .footer-social {
     text-align: center;
+  }
+
+  .footer-social a {
+    margin-left: 0;
   }
 }
 
