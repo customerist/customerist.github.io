@@ -12,6 +12,6 @@ When a customer hands over their data, buys from you again and again, and sticks
 
 Every brand now says they're "AI-powered." Most customers can tell within one email that nothing changed.
 
-The gap isn't a lack of AI. It's that nobody stitched the data together well enough for the AI to have anything real to work with. Agents can only act on context you've actually unified - otherwise you've just automated the guesswork.
+The gap isn't a lack of AI. It's that nobody stitched the data together well enough for the AI to have anything real to work with. Agents can only act on context you've actually unified—otherwise you've just automated the guesswork.
 
 Closing that gap doesn't always mean ripping out your platform. Sometimes it's making smarter use of what's already sitting in your stack. We'd love to help you find the quick wins.
