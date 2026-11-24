@@ -1,5 +1,5 @@
 ---
-title: Culture Eats Customer Strategy for Breakfast
+title: Your AI Is Learning Your Real Priorities
 description: AI scales what you already do, but it doesn't fix what you actually believe about customers. Consistency, especially when it's inconvenient, is the real competitive advantage.
 date: 2026-08-03
 cover: ../../assets/images/culture-eats-customer-strategy.png

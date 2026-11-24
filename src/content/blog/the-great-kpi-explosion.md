@@ -1,5 +1,5 @@
 ---
-title: The Great KPI Explosion
+title: The One Number Worth Agreeing On
 description: What most businesses are missing isn't a metric. It's alignment on the one number that, if it moved in the right direction, would tell you everything else is working.
 date: 2026-08-11
 cover: ../../assets/images/kpi-explosion.png
