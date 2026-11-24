@@ -52,6 +52,9 @@ const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '') ||
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
+    <!-- GoatCounter visitor stats: cookie-free, dashboard at customerist.goatcounter.com.
+         It ignores visits from localhost, so development doesn't skew the numbers. -->
+    <script is:inline data-goatcounter="https://customerist.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   </head>
   <body class="body">
     <a href="#main" class="skip-link">Skip to content</a>
