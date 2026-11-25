@@ -20,22 +20,32 @@ const posts = await getPosts();
           No posts yet. In the meantime, <a href="/casestudies">read our case studies</a>.
         </p>
       ) : (
-        <ol>
+        <ol class="blog-gallery">
           {posts.map((post) => (
-            <li>
-              <article class:list={['blog-card', { 'blog-card--cover': post.data.cover }]}>
-                <div>
-                  <p class="blog-meta">
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{post.data.author && ` · ${post.data.author}`}
-                    {post.data.draft && <span class="blog-draft">Draft, not published</span>}
-                  </p>
-                  <h2 class="blog-card__title">
-                    <a href={`/blogs/${post.id}`}>{post.data.title}</a>
-                  </h2>
-                  <p class="blog-card__text">{post.data.description}</p>
-                </div>
-                {post.data.cover && <Img src={post.data.cover} alt="" width={320} class="blog-card__cover" />}
-              </article>
+            <li class="blog-tile">
+              <div class="blog-tile__cover">
+                {post.data.cover ? (
+                  <Img
+                    src={post.data.cover}
+                    alt=""
+                    sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 340px"
+                    class="blog-tile__img"
+                  />
+                ) : (
+                  <div class="blog-tile__placeholder" aria-hidden="true">
+                    {post.data.title}
+                  </div>
+                )}
+              </div>
+              <div class="blog-tile__caption">
+                <h2 class="blog-tile__title">
+                  <a href={`/blogs/${post.id}`}>{post.data.title}</a>
+                </h2>
+                <p class="blog-meta">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{post.data.author && ` · ${post.data.author}`}
+                  {post.data.draft && <span class="blog-draft">Draft, not published</span>}
+                </p>
+              </div>
             </li>
           ))}
         </ol>
