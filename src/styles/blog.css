@@ -48,10 +48,78 @@
   width: min(100%, 1120px);
 }
 
+/* Featured post: one large cover with its title and summary alongside. */
+.blog-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding-bottom: 64px;
+  margin-bottom: 64px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.blog-feature__cover {
+  display: block;
+}
+
+.blog-feature:hover .blog-tile__img,
+.blog-feature:hover .blog-tile__placeholder,
+.blog-feature:focus-within .blog-tile__img,
+.blog-feature:focus-within .blog-tile__placeholder {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.08), 0 16px 32px -12px rgb(0 0 0 / 0.4);
+}
+
+.blog-feature__kicker {
+  margin: 0 0 12px;
+  color: var(--red-ink);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-feature__title {
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(32px, 22px + 2.4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.blog-feature__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.blog-feature__title a:hover,
+.blog-feature__title a:focus-visible {
+  color: var(--red-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+
+.blog-feature__text {
+  max-width: 40ch;
+  margin: 0 0 16px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.blog-feature .blog-meta {
+  margin: 0 0 24px;
+}
+
+.blog-feature .blog-cta {
+  text-decoration: none;
+}
+
 .blog-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 56px 40px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 56px 32px;
 }
 
 .blog-tile {
@@ -139,7 +207,25 @@
 
 @media (max-width: 1000px) {
   .blog-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 48px 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .blog-feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-bottom: 48px;
+    margin-bottom: 48px;
+  }
+
+  .blog-feature__cover {
+    max-width: 320px;
+  }
+
+  .blog-feature__text {
+    font-size: 17px;
   }
 }
 
