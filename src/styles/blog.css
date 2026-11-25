@@ -10,6 +10,17 @@
   margin-inline: auto;
 }
 
+/* The serif is only loaded at weight 500 (Medium). Headings default to bold,
+   which made browsers thicken it artificially, so serif titles ask for 500. */
+.blog-feature__title,
+.blog-tile__title,
+.blog-tile__placeholder,
+.blog-post__title,
+.blog-prose h2,
+.blog-prose h3 {
+  font-weight: 500;
+}
+
 .blog-header {
   padding: 60px 10px 40px;
 }
