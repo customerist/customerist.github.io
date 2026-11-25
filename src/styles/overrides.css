@@ -1043,3 +1043,19 @@ textarea.w-input {
     transform: none;
   }
 }
+
+/* Keep two-word menu labels ("Our Thoughts", "Talk to us") on one line on
+   laptop widths, tightening the spacing until the menu has room to breathe. */
+@media (min-width: 992px) {
+  .nav-menu-two-4 .w-nav-link,
+  .nav-menu-two-4 .button-primary-5 {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .nav-menu-two-4 .w-nav-link {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

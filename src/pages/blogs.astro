@@ -9,9 +9,9 @@ const featured = posts.find((post) => post.data.featured) ?? posts[0];
 const rest = posts.filter((post) => post !== featured);
 ---
 
-<Base title="Blogs | Customerist" description="Notes on customer strategy, CRM, loyalty and customer experience from the Customerist team.">
+<Base title="Our Thoughts | Customerist" description="Notes on customer strategy, CRM, loyalty and customer experience from the Customerist team.">
   <section class="blog-header">
-    <h1 class="main-heading">Blogs</h1>
+    <h1 class="main-heading">Our Thoughts</h1>
     <p class="blog-header__lead">Notes on customer strategy, CRM, loyalty and customer experience from the Customerist team.</p>
   </section>
 
@@ -19,7 +19,7 @@ const rest = posts.filter((post) => post !== featured);
     {
       posts.length === 0 ? (
         <p class="blog-empty">
-          No posts yet. In the meantime, <a href="/casestudies">read our case studies</a>.
+          No posts yet. In the meantime, <a href="/casestudies">see our work</a>.
         </p>
       ) : (
         <>

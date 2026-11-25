@@ -8,10 +8,10 @@ const links = [
   { href: '/#about', label: 'About' },
   { href: '/#services', label: 'Services' },
   { href: '/#philosophy', label: 'Our Philosophy' },
-  { href: '/casestudies', label: 'Case Studies' },
+  { href: '/casestudies', label: 'Our Work' },
 ];
-// The Blogs link appears once there is something to read.
-if ((await getPosts()).length > 0) links.push({ href: '/blogs', label: 'Blogs' });
+// The Our Thoughts link appears once there is something to read.
+if ((await getPosts()).length > 0) links.push({ href: '/blogs', label: 'Our Thoughts' });
 const isCurrent = (href: string) => path === href || (href === '/blogs' && path.startsWith('/blogs/'));
 ---
 
