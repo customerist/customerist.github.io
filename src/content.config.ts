@@ -17,6 +17,8 @@ const blog = defineCollection({
       coverAlt: z.string().default(''),
       /** Drafts show while developing and are left out of the published site. */
       draft: z.boolean().default(false),
+      /** Shown large at the top of the blog page. With none marked, the newest post is. */
+      featured: z.boolean().default(false),
     }),
 });
 

@@ -38,29 +38,215 @@
   list-style: none;
 }
 
-.blog-list li {
-  border-top: 1px solid var(--rule);
+/* Gallery: covers sit on a shared baseline, like magazines on a rack, with
+   the title underneath. Covers differ in shape (portrait and landscape), so
+   each keeps its own proportions and the row lines them up along the bottom;
+   the subgrid keeps titles level across the row. */
+
+.blog-header,
+.blog-list {
+  width: min(100%, 1120px);
 }
 
-.blog-list li:last-child {
+/* Featured post: one large cover with its title and summary alongside. */
+.blog-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding-bottom: 64px;
+  margin-bottom: 64px;
   border-bottom: 1px solid var(--rule);
 }
 
-.blog-card {
-  padding-block: 32px;
+.blog-feature__cover {
+  display: block;
 }
 
-.blog-card--cover {
+.blog-feature:hover .blog-tile__img,
+.blog-feature:hover .blog-tile__placeholder,
+.blog-feature:focus-within .blog-tile__img,
+.blog-feature:focus-within .blog-tile__placeholder {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.08), 0 16px 32px -12px rgb(0 0 0 / 0.4);
+}
+
+.blog-feature__kicker {
+  margin: 0 0 12px;
+  color: var(--red-ink);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-feature__title {
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(32px, 22px + 2.4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.blog-feature__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.blog-feature__title a:hover,
+.blog-feature__title a:focus-visible {
+  color: var(--red-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+
+.blog-feature__text {
+  max-width: 40ch;
+  margin: 0 0 16px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.blog-feature .blog-meta {
+  margin: 0 0 24px;
+}
+
+.blog-feature .blog-cta {
+  text-decoration: none;
+}
+
+.blog-gallery {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
-  gap: 32px;
-  align-items: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 56px 32px;
 }
 
-.blog-card__cover {
-  /* Show the whole cover at its own shape, never cropped. */
+.blog-tile {
+  position: relative;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 16px;
+}
+
+.blog-tile__cover {
+  align-self: end;
+}
+
+.blog-tile__img,
+.blog-tile__placeholder {
+  display: block;
   width: 100%;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 8px 24px -12px rgb(0 0 0 / 0.35);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.blog-tile__img {
   height: auto;
+}
+
+/* A post without a cover still gets a tile, so the gallery never has a gap. */
+.blog-tile__placeholder {
+  display: flex;
+  align-items: center;
+  aspect-ratio: 4 / 5;
+  padding: 24px;
+  background-color: var(--surface-tinted);
+  border: 3px solid var(--red-brand);
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.blog-tile:hover .blog-tile__img,
+.blog-tile:hover .blog-tile__placeholder,
+.blog-tile:focus-within .blog-tile__img,
+.blog-tile:focus-within .blog-tile__placeholder {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.08), 0 16px 32px -12px rgb(0 0 0 / 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-tile__img,
+  .blog-tile__placeholder {
+    transition: none;
+  }
+}
+
+.blog-tile__title {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: clamp(19px, 16px + 0.6vw, 24px);
+  line-height: 1.2;
+}
+
+.blog-tile__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* The whole tile is clickable through the title link. */
+.blog-tile__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.blog-tile:hover .blog-tile__title a,
+.blog-tile__title a:focus-visible {
+  color: var(--red-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+}
+
+.blog-tile .blog-meta {
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .blog-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .blog-feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-bottom: 48px;
+    margin-bottom: 48px;
+  }
+
+  .blog-feature__cover {
+    max-width: 320px;
+  }
+
+  .blog-feature__text {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 600px) {
+  .blog-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 16px;
+  }
+
+  .blog-tile {
+    row-gap: 12px;
+  }
+
+  .blog-tile__placeholder {
+    padding: 14px;
+    font-size: 18px;
+  }
+
+  .blog-tile .blog-meta {
+    font-size: 13px;
+  }
 }
 
 .blog-meta {
@@ -77,33 +263,6 @@
   color: var(--ink);
   border: 1px solid var(--rule-strong);
   font-weight: bold;
-}
-
-.blog-card__title {
-  margin: 0 0 10px;
-  font-family: var(--serif);
-  font-size: clamp(26px, 20px + 1.6vw, 38px);
-  line-height: 1.15;
-}
-
-.blog-card__title a {
-  color: var(--ink);
-  text-decoration: none;
-  transition: color 150ms;
-}
-
-.blog-card__title a:hover {
-  color: var(--red-ink);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.15em;
-}
-
-.blog-card__text {
-  max-width: 60ch;
-  margin-bottom: 0;
-  font-size: 17px;
-  line-height: 1.5;
 }
 
 .blog-empty {
@@ -304,17 +463,6 @@
   .blog-header,
   .blog-post {
     padding-top: 40px;
-  }
-
-  .blog-card--cover {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
-  }
-
-  .blog-card__cover {
-    order: -1;
-    /* Keep portrait covers from filling the whole screen on phones. */
-    max-width: 320px;
   }
 
   .blog-prose {

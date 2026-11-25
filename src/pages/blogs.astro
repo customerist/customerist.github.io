@@ -5,6 +5,8 @@ import { formatDate, getPosts } from '../data/posts';
 import Base from '../layouts/Base.astro';
 
 const posts = await getPosts();
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const rest = posts.filter((post) => post !== featured);
 ---
 
 <Base title="Blogs | Customerist" description="Notes on customer strategy, CRM, loyalty and customer experience from the Customerist team.">
@@ -20,25 +22,60 @@ const posts = await getPosts();
           No posts yet. In the meantime, <a href="/casestudies">read our case studies</a>.
         </p>
       ) : (
-        <ol>
-          {posts.map((post) => (
-            <li>
-              <article class:list={['blog-card', { 'blog-card--cover': post.data.cover }]}>
-                <div>
-                  <p class="blog-meta">
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{post.data.author && ` · ${post.data.author}`}
-                    {post.data.draft && <span class="blog-draft">Draft, not published</span>}
-                  </p>
-                  <h2 class="blog-card__title">
-                    <a href={`/blogs/${post.id}`}>{post.data.title}</a>
-                  </h2>
-                  <p class="blog-card__text">{post.data.description}</p>
-                </div>
-                {post.data.cover && <Img src={post.data.cover} alt="" width={320} class="blog-card__cover" />}
-              </article>
+        <>
+        <article class="blog-feature">
+          <a href={`/blogs/${featured.id}`} class="blog-feature__cover" tabindex="-1" aria-hidden="true">
+            {featured.data.cover ? (
+              <Img src={featured.data.cover} alt="" sizes="(max-width: 700px) 80vw, 420px" class="blog-tile__img" />
+            ) : (
+              <div class="blog-tile__placeholder">{featured.data.title}</div>
+            )}
+          </a>
+          <div class="blog-feature__body">
+            <p class="blog-feature__kicker">Featured</p>
+            <h2 class="blog-feature__title">
+              <a href={`/blogs/${featured.id}`}>{featured.data.title}</a>
+            </h2>
+            <p class="blog-feature__text">{featured.data.description}</p>
+            <p class="blog-meta">
+              <time datetime={featured.data.date.toISOString()}>{formatDate(featured.data.date)}</time>{featured.data.author && ` · ${featured.data.author}`}
+              {featured.data.draft && <span class="blog-draft">Draft, not published</span>}
+            </p>
+            <a href={`/blogs/${featured.id}`} class="blog-cta">Read the article →</a>
+          </div>
+        </article>
+        {rest.length > 0 && (
+        <ol class="blog-gallery">
+          {rest.map((post) => (
+            <li class="blog-tile">
+              <div class="blog-tile__cover">
+                {post.data.cover ? (
+                  <Img
+                    src={post.data.cover}
+                    alt=""
+                    sizes="(max-width: 1000px) 50vw, 260px"
+                    class="blog-tile__img"
+                  />
+                ) : (
+                  <div class="blog-tile__placeholder" aria-hidden="true">
+                    {post.data.title}
+                  </div>
+                )}
+              </div>
+              <div class="blog-tile__caption">
+                <h2 class="blog-tile__title">
+                  <a href={`/blogs/${post.id}`}>{post.data.title}</a>
+                </h2>
+                <p class="blog-meta">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{post.data.author && ` · ${post.data.author}`}
+                  {post.data.draft && <span class="blog-draft">Draft, not published</span>}
+                </p>
+              </div>
             </li>
           ))}
         </ol>
+        )}
+        </>
       )
     }
   </section>
